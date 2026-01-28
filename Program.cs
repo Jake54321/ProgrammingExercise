@@ -13,7 +13,6 @@ namespace ConsoleApp1
             Random rand = new Random();
             int[] answer = new int[4];
 
-            // Generate the secret answer (digits 1–6)
             for (int i = 0; i < 4; i++)
             {
                 answer[i] = rand.Next(1, 7);
@@ -21,12 +20,12 @@ namespace ConsoleApp1
 
             int attempts = 10;
 
-            Console.WriteLine("Guess the 4-digit code (digits will be 1–6). You have 10 chances.");
+            Console.WriteLine("Guess the 4-digit code (digits must be 1–6). You have 10 trys.");
 
             int attemptTry = 1;
             while (attempts > 0)
             {
-                Console.Write($"\nAttempt {attemptTry}/10 - Enter your guess: ");
+                Console.Write($"Attempt {attemptTry} out of 10 - Enter guess: ");
                 string input = Console.ReadLine();
 
 
@@ -57,14 +56,14 @@ namespace ConsoleApp1
                 bool[] Used = new bool[4];
                 bool[] Guessed = new bool[4];
 
-                int plusCount = 0;
-                int minusCount = 0;
+                int totalPlus = 0;
+                int totalMinus = 0;
 
                 for (int i = 0; i < 4; i++)
                 {
                     if (guess[i] == answer[i])
                     {
-                        plusCount++;
+                        totalPlus++;
                         Used[i] = true;
                         Guessed[i] = true;
                     }
@@ -79,18 +78,18 @@ namespace ConsoleApp1
                     {
                         if (!Used[j] && guess[i] == answer[j])
                         {
-                            minusCount++;
+                            totalMinus++;
                             Used[j] = true;
                             break;
                         }
                     }
                 }
 
-                string result = new string('+', plusCount) + new string('-', minusCount);
+                string result = new string('+', totalPlus) + new string('-', totalMinus);
                 Console.WriteLine("Result: " + result);
 
 
-                if (plusCount == 4)
+                if (totalPlus == 4)
                 {
                     Console.WriteLine("Correct!");
                     Console.ReadLine();
